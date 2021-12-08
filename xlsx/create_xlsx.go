@@ -65,6 +65,9 @@ func getGiaoDescList(in interface{}) []GiaoDesc {
 	for i := 0; i < t.NumField(); i++ {
 		f := t.Field(i)
 		giao := f.Tag.Get("giao")
+		if giao == "" {
+			continue
+		}
 		// todo validate the pattern, and fix it if necessary
 		desc := fromString(giao)
 		desc.FiledName = f.Name
