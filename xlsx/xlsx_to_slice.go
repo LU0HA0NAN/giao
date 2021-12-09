@@ -38,7 +38,7 @@ func FromExcel(file, sheet string, look interface{}, skipFirstLine bool) (interf
 	for i := first; i <= rowOfSheet; i++ {
 		v := reflect.New(inType).Elem()
 		for j, fileName := range fileNameSet {
-			axis := string('a'+j) + strconv.Itoa(i)
+			axis := string(rune('a'+j)) + strconv.Itoa(i)
 			value, _ := f.GetCellValue(sheet, axis)
 			switch (v.FieldByName(fileName).Interface()).(type) {
 			case string:
