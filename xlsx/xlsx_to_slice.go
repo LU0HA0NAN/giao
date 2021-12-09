@@ -2,7 +2,6 @@ package xlsx
 
 import (
 	"errors"
-	"fmt"
 	"github.com/xuri/excelize/v2"
 	"reflect"
 	"strconv"
@@ -11,13 +10,12 @@ import (
 func FromExcel(file, sheet string, look interface{}, skipFirstLine bool) (interface{}, error) {
 	f, err := excelize.OpenFile(getSuffixedFileName(file))
 	if err != nil {
-		fmt.Println(err)
 		return nil, errors.New("打开文档失败：" + err.Error())
 	}
 
 	rows, err := f.GetRows(sheet)
 	if err != nil {
-		return nil, errors.New("读取Sheet" + sheet + "失败：" + err.Error())
+		return nil, errors.New("读取Sheet '" + sheet + "' 失败：" + err.Error())
 	}
 
 	rowOfSheet := len(rows)
@@ -25,7 +23,6 @@ func FromExcel(file, sheet string, look interface{}, skipFirstLine bool) (interf
 	fileNameSet := getFileNameSet(descList)
 
 	inType := reflect.TypeOf(look)
-	fmt.Println(inType)
 
 	inSliceType := reflect.SliceOf(inType)
 	inTypeSlice := reflect.MakeSlice(inSliceType, 0, 0)
